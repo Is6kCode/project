@@ -3,9 +3,7 @@
 */
 package file
 
-import (
-	"bufio"
-	"fmt"
+import(
 	"os"
 )
 
@@ -31,30 +29,31 @@ func (infoItem CompanyInfoItem) FormatTabString() string {
 		infoItem.CompanyName + "\t" +
 		infoItem.ComRating + "\t" +
 		infoItem.Deadline + "\t" +
-		inforItem.ComQualification + "\t" +
-		inforItem.Level + "\t" +
-		inforItem.Performance + "\t" +
-		inforItem.BidingDate + "\t" +
-		inforItem.BidingPrice + "\t" +
-		inforItem.ContractPrice + "\t" +
-		inforItem.CompleteDate + "\t" +
-		inforItem.Qualification + "\t"
+		infoItem.ComQualification + "\t" +
+		infoItem.Level + "\t" +
+		infoItem.Performance + "\t" +
+		infoItem.BidingDate + "\t" +
+		infoItem.BidingPrice + "\t" +
+		infoItem.ContractPrice + "\t" +
+		infoItem.CompleteDate + "\t" +
+		infoItem.Qualification + "\t"
 	return retStr
 }
 
 //将公司信息保存Tab分割的文件
 func WriteToFile(FileName string, data []CompanyInfoItem) (err error) {
 	//以读写方式打开或创建方式打开文件，且清空文件
-	file, err := os.OpenFile(FileName, O_RDWR|O_TRUNC|O_CREATE)
+	file, err := os.OpenFile(FileName, os.O_RDWR|os.O_TRUNC|os.O_CREATE,0644)
 	if err != nil {
 		return err
 	}
 
 	lineText := "序号\t单位名称\t综合评价分数\t有效期\t企业资质\t业绩名\t中标日期\t中标价(万元)\t竣工验收日期\t业绩对应的资质"
-	file.WriteString(tiTile)
+	file.WriteString(lineText)
 	for _, infoItem := range data {
-		lintext = "\r\n" + inforItem.FormatTabString()
-		file.WriteString()
+		lineText = "\r\n" + infoItem.FormatTabString()
+		file.WriteString(lineText)
 	}
 	defer file.Close()
+	return nil
 }
